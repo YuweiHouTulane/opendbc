@@ -448,7 +448,7 @@ STEER_THRESHOLD = {
   CAR.HONDA_PILOT_4G_MMR: 600,
   CAR.HONDA_PASSPORT_4G: 600,
   CAR.ACURA_MDX_4G_MMR: 600,
-  CAR.HONDA_CRV_6G: 600,
+  CAR.HONDA_CRV_6G: 1000,  # 600 sat at the median of resting-hands torque (p50 362, p75 760, p90 1079 while lateral active); 40% of lat-active time was flagged as override
   CAR.HONDA_CITY_7G: 600,
   CAR.HONDA_NBOX_2G: 600,
 }
