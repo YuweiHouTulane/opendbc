@@ -241,7 +241,10 @@ class CarInterface(CarInterfaceBase):
       if 0x223 in fingerprint[CAN.pt]:
         ret.flags |= HondaFlagsSP.HYBRID_ALT_BRAKEHOLD.value
 
-    if 0x35E in fingerprint[CAN.pt]:
+    # CAMERA_MESSAGES (0x35E) comes from the camera. On CAN-FD and radarless cars the panda only receives it
+    # on the camera bus; bus 0 sees the forwarded copy as a tx echo (src 128), which can_fingerprint()
+    # ignores, so the flag was never set on those cars. Check the camera bus as well.
+    if 0x35E in fingerprint[CAN.pt] or 0x35E in fingerprint.get(CAN.camera, {}):
       ret.flags |= HondaFlagsSP.HAS_CAMERA_MESSAGES.value
 
     if candidate == CAR.HONDA_CIVIC:
