@@ -173,6 +173,13 @@ class CarInterface(CarInterfaceBase):
         # When using stock ACC, the radar intercepts and filters steering commands the EPS would otherwise accept
         ret.minSteerSpeed = 70. * CV.KPH_TO_MS
 
+    elif candidate == CAR.HONDA_CRV_6G:
+      ret.steerActuatorDelay = 0.15
+      CarInterfaceBase.configure_torque_tune(candidate, ret.lateralTuning)
+      # Wheel speeds read ~2% low on this platform: over 469 km of comma four logs (11,185 GPS-matched samples at
+      # >8 m/s, speed accuracy <0.5 m/s) vEgo/GPS averaged 0.9805 while the cluster speed matched GPS (0.9998).
+      ret.wheelSpeedFactor = 1.02
+
     # TODO-SP: remove when https://github.com/commaai/opendbc/pull/2687 is merged
     elif candidate == CAR.HONDA_CLARITY:
       pass
